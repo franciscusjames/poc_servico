@@ -1,6 +1,6 @@
-import Outlook from './clients/outlook';
+// import Outlook from './clients/outlook';
 const { sleepTime } = require('./utils/sleepTime');
-
+import { buscarToken } from './clients/outlook'
 let accessToken;
 
 // let inboxOptions = {
@@ -29,12 +29,11 @@ let accessToken;
 let index = async (): Promise<any> => {
     console.log('Iniciando a lambda service POC_emailDashboard');
     console.log('------------------------');
-    let outlook = new Outlook();
 
-    await outlook.buscarToken();
+
+    await buscarToken();
     await sleepTime(1000);
-    await outlook.buscarInbox();
-    await sleepTime(1000);
+
     // console.log('Buscando emails em Caixa de Saída(sentitems)');
     // await outlook.buscarOutbox();
     // console.log('Caixa de Saida: OK');
