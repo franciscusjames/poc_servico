@@ -1,0 +1,20 @@
+# package directories
+node_modules
+jspm_packages
+package-*
+yarn.lock
+yarn-error.log
+
+# Serverless directories
+.serverless
+
+*.map
+
+# build output (files.js)
+build
+.build
+
+# nyc
+.nyc*
+coverage/
+

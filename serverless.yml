@@ -1,0 +1,113 @@
+# ################################# Development Settings ############################################
+ service: poc-servico
+
+ provider:
+   name: aws
+   runtime: nodejs12.x
+
+   stage: dev
+   region: us-east-1
+
+ functions:
+   handler:
+     handler: build/index.handler
+
+     environment:
+       DBHOST: poc-database.ckuyozcu3sos.us-east-1.rds.amazonaws.com 
+       DBUSER: admin
+       DBPORT: 3306 
+       DBPASSWORD: password01
+       DBNAME: poc_example       
+
+     events:
+       - http: ANY /
+       - http: 'ANY {proxy+}'
+
+ plugins:
+     - customOffline
+     - serverless-offline
+
+ package:
+   include:
+     - .env
+     - resources/
+    
+
+   exclude:
+     - node_modules/**/*
+     - test/
+
+ custom:
+   serverless-offline:
+     port: 3001
+
+
+################################## Production Settings ############################################
+# service: allied-soudi-linxfaturamento # NOTE: update this with your service name
+
+# provider:
+#   name: aws
+#   runtime: nodejs12.x
+#   memorySize: 512
+#   stage: ${opt:stage, 'dev'}
+#   region: us-east-1
+  
+# #  vpc:
+# #    securityGroupIds:
+# #      - sg-096e22bff091ae48f
+# #    subnetIds:
+# #      - subnet-0f1d63e2375c174aa
+# #      - subnet-0b27b21d0bc86d0bc
+
+#   tracing: true # enable tracing
+#   iamRoleStatements:
+#     - Effect: "Allow" # xray permissions (required)
+#       Action:
+#         - "xray:PutTraceSegments"
+#         - "xray:PutTelemetryRecords"
+#       Resource:
+#         - "*"
+#   deploymentBucket:
+#     name: allied-soudi-linxfaturamento-bucket
+
+# functions:
+#   handler:
+#     handler: build/index.handler
+#     name: ${self:service}-handler-${self:provider.stage}
+#     environment:
+#       DBHOST: poc-database.ckuyozcu3sos.us-east-1.rds.amazonaws.com
+#       DBUSER: admin
+#       DBPORT: 3306 
+#       DBPASSWORD: password01
+#       DBNAME: poc_example
+      
+#       URL_TOKEN: https://login.microsoftonline.com/79094b9a-9e56-443b-98ae-05b380ffc461/oauth2/v2.0/token
+      
+#       CLIENT_ID: e3c91d0d-0dc4-4fd4-876d-08e39f638ea4
+#       CLIENT_SECRET: '[cmC6U?[mj2PUHfZiqyX6aibw9dllMY?'
+#       USER_NAME: james.franciscus@modalgr.com.br
+#       USER_PASSWORD: Modal@01
+            
+      
+#     events:
+#       - schedule:
+#           name: ${self:service}
+#           rate: cron(0 4 * * ? *)
+#           enabled: true
+
+# plugins:
+#   - customDeployTypeScript
+#   - serverless-plugin-tracing
+
+# package:
+#   include:
+#     - .env
+
+#   exclude:
+#     - src/**/*
+#     - test/**
+#     - .build/**
+#     - Gulpfile.js
+#     - package*
+#     - README.MD
+#     - tsconfig.json
