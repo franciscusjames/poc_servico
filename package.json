@@ -15,7 +15,7 @@
   },
   "nyc": {
     "function": "70",
-    "branches": "76",
+    "branches": "50",
     "lines": "40",
     "check-coverage": "true",
     "reporter": [
