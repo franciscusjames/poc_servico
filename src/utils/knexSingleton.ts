@@ -27,7 +27,7 @@ export class KnexSingleton {
 
     public static getInstance(): KnexSingleton {
         if (!KnexSingleton.instance) {
-            console.log('Criando nova instância');
+            //console.log('Criando nova instância');
             KnexSingleton.instance = new KnexSingleton();
         }
         return KnexSingleton.instance;

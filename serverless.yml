@@ -48,7 +48,6 @@
 # provider:
 #   name: aws
 #   runtime: nodejs12.x
-#   memorySize: 512
 #   stage: ${opt:stage, 'dev'}
 #   region: us-east-1
   
@@ -80,14 +79,7 @@
 #       DBPORT: 3306 
 #       DBPASSWORD: password01
 #       DBNAME: poc_example
-      
-#       URL_TOKEN: https://login.microsoftonline.com/79094b9a-9e56-443b-98ae-05b380ffc461/oauth2/v2.0/token
-      
-#       CLIENT_ID: e3c91d0d-0dc4-4fd4-876d-08e39f638ea4
-#       CLIENT_SECRET: '[cmC6U?[mj2PUHfZiqyX6aibw9dllMY?'
-#       USER_NAME: james.franciscus@modalgr.com.br
-#       USER_PASSWORD: Modal@01
-            
+                  
       
 #     events:
 #       - schedule:

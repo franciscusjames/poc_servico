@@ -4,14 +4,23 @@ const htmlToText = require('html-to-text');
 
 export async function processarEmails(emails, emailType) {
     let emailsTratados = emails.map((item) => {
-        let textBody = htmlToText.fromString(item.body.content)
+        const textBody = htmlToText.fromString(item.body.content);
+
+        let data;
+        if (emailType === 'Inbox') {
+            data = item.receivedDateTime;
+
+        } else {
+            data = item.sentDateTime;
+        }
+
         return {
             emailId: item.id,
             tipoEmail: emailType,
             remetente: item.from.emailAddress.address,
             assunto: item.subject,
             emailBody: textBody,
-            dataChegadaOuEnvio: item.receivedDateTime,
+            dataChegadaOuEnvio: data,
             //attachments: [],
             temAnexos: item.hasAttachments,
             foiLido: item.isRead
