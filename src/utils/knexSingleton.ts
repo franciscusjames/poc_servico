@@ -10,10 +10,10 @@ export class KnexSingleton {
             client: 'mysql2',
             version: '5.7',
             connection: {
-                host : process.env.DBHOST,
-                user : process.env.DBUSER,
-                password : process.env.DBPASSWORD,
-                database : process.env.DBNAME
+                host: process.env.DBHOST,
+                user: process.env.DBUSER,
+                password: process.env.DBPASSWORD,
+                database: process.env.DBNAME
             },
             pool: {
                 min: 0,
@@ -22,10 +22,10 @@ export class KnexSingleton {
             },
             acquireConnectionTimeout: 15000
         });
-        
+
     }
 
-    public static getInstance():  KnexSingleton{
+    public static getInstance(): KnexSingleton {
         if (!KnexSingleton.instance) {
             console.log('Criando nova instância');
             KnexSingleton.instance = new KnexSingleton();
