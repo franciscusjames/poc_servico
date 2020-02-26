@@ -8,10 +8,10 @@ export async function processarEmails(emails, emailType) {
 
         let data;
         if (emailType === 'Inbox') {
-            data = item.receivedDateTime;
-
-        } else {
-            data = item.sentDateTime;
+            data = new Date(item.receivedDateTime);
+        }
+        if (emailType === 'Outbox') {
+            data = new Date(item.sentDateTime);
         }
 
         return {

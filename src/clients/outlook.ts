@@ -39,11 +39,11 @@ export async function buscarEmails() {
             console.log('------------------------');
 
             let date = new Date();
-            date.setHours(date.getHours() - 4); // -3(UTC) -1h
+            date.setHours(date.getHours() - 4); // -3(UTC) -1h (?)
             date.setMilliseconds(0);
             let dateParm = date.toISOString().replace('.000', '');
-            // let dateParm = '2020-02-21T14:00:00Z'; TESTE
-            console.log('dateParm: ', dateParm);
+            // let dateParm = '2020-02-21T14:00:00Z'; TESTE & FORMAT
+            console.log('Pegando emails a partir de: ', dateParm);
 
             const client = graph.Client.init({
                 authProvider: (done) => {
@@ -66,42 +66,6 @@ export async function buscarEmails() {
     req.end();
 }
 
-// async function buscarInbox(token) {
-//     console.log('-> Buscando emails em Caixa de Entrada(inbox)...');
-//     let inputOptions = {
-//         host: 'graph.microsoft.com',
-//         port: 443,
-//         method: 'GET',
-//         path: "/v1.0/me/mailfolders/AQMkADZkZjU0N2Q2LWI0MmUtNDYxYy04YTVkLTZhYQA3ODgCMjdhMwAuAAADAZjRiT7XM0eEItqYTnM7SQEA1Gz7XMjWS0eisWQxPYyYTAABIHEO_gAAAA==/messages",
-//         headers: {
-//             'Content-Type': 'application/json',
-//             'SdkVersion': 'postman-graph/v1.0',
-//             'Authorization': `Bearer ${token}`
-//         }
-//     }
-
-//     let req = await https.request(inputOptions, async function (res) {
-//         let result = '';
-//         res.on('data', function (chunk) {
-//             result += chunk;
-//         });
-//         res.on('end', async function () {
-//             let inbox = JSON.parse(result).value;
-//             console.log('Caixa de Entrada: OK');
-//             console.log('------------------------');
-//             await processarEmails(inbox, 'Inbox');
-//         });
-//         res.on('error', function (err) {
-//             console.log('ERR: ', err);
-//         })
-//     }
-//     );
-//     req.on('error', function (err) {
-//         console.log('ERR: ', err);
-//     });
-//     req.write('');
-//     req.end();
-// }
 
 async function buscarInbox(client, dateParm) {
     const result = await client
@@ -109,14 +73,18 @@ async function buscarInbox(client, dateParm) {
         //.top(1)
         //.select('subject,from,receivedDateTime,isRead')
         .select('*')
-        //.orderby('receivedDateTime DESC')
-        //.filter(`receivedDateTime ge ${dateParm}`)
+        .orderby('receivedDateTime DESC')
+        .filter(`receivedDateTime ge ${dateParm}`)
         .get();
+
     let inbox = result.value;
-    //console.log('CLIENT_INBOX: ', inbox);
+    console.log('Inbox count: ', inbox.length);
+    //console.log('CLIENT_INBOX: ', inbox);    
+    if (inbox.length > 0) {
+        await processarEmails(inbox, 'Inbox');
+    }
     console.log('Caixa de Entrada: OK');
     console.log('------------------------');
-    await processarEmails(inbox, 'Inbox');
 }
 
 
@@ -126,50 +94,17 @@ async function buscarOutbox(client, dateParm) {
         //.top(1)
         //.select('subject,from,receivedDateTime,isRead')
         .select('*')
-        //.orderby('sentDateTime DESC')
-        //.filter(`sentDateTime ge ${dateParm}`)
+        .orderby('sentDateTime DESC')
+        .filter(`sentDateTime ge ${dateParm}`)
         .get();
+
     let outbox = result.value;
+    console.log('Outbox count: ', outbox.length);
     //console.log('CLIENT_OUTBOX: ', outbox);
+    if (outbox.length > 0) {
+        await processarEmails(outbox, 'Outbox');
+    }
     console.log('Caixa de Saida: OK');
     console.log('------------------------');
-    await processarEmails(outbox, 'Outbox');
 }
 
-
-// async function buscarOutbox(token) {
-//     console.log('-> Buscando emails em Caixa de Saida(sentitems)...');
-//     let outboxOptions = {
-//         host: 'graph.microsoft.com',
-//         port: 443,
-//         method: 'GET',
-//         path: '/v1.0/me/mailfolders/AQMkADZkZjU0N2Q2LWI0MmUtNDYxYy04YTVkLTZhYQA3ODgCMjdhMwAuAAADAZjRiT7XM0eEItqYTnM7SQEA1Gz7XMjWS0eisWQxPYyYTAABTt3JcwAAAA==/messages',
-//         headers: {
-//             'Content-Type': 'application/json',
-//             'SdkVersion': 'postman-graph/v1.0',
-//             'Authorization': `Bearer ${token}`
-//         }
-//     }
-
-//     let req = await https.request(outboxOptions, async function (res) {
-//         let result = '';
-//         res.on('data', function (chunk) {
-//             result += chunk;
-//         });
-//         res.on('end', async function () {
-//             let outbox = JSON.parse(result).value;
-//             console.log('Caixa de Saida: OK');
-//             console.log('------------------------');
-//             await processarEmails(outbox, 'Outbox');
-//         });
-//         res.on('error', function (err) {
-//             console.log('ERR: ', err);
-//         })
-//     }
-//     );
-//     req.on('error', function (err) {
-//         console.log('ERR: ', err);
-//     });
-//     req.write('');
-//     req.end();
-// }
