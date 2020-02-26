@@ -1,5 +1,5 @@
 # ################################# Development Settings ############################################
-#  service: poc-getEmailService
+#  service: get-email-service
 
 #  provider:
 #    name: aws
@@ -43,7 +43,7 @@
 
 
 ################################## Production Settings ############################################
-service: poc-getEmailService # NOTE: update this with your service name
+service: get-email-service # NOTE: update this with your service name
 
 provider:
   name: aws
@@ -67,7 +67,7 @@ provider:
       Resource:
         - "*"
   deploymentBucket:
-    name: poc-getEmailService-bucket
+    name: get-email-service-bucket
 
 functions:
   handler:
