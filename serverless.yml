@@ -84,7 +84,7 @@ functions:
     events:
       - schedule:
           name: ${self:service}
-          rate: cron(15 * * * *)
+          rate: cron(0 * * * *)
           enabled: true
 
 plugins:
