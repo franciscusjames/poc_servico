@@ -74,12 +74,12 @@ async function buscarInbox(client, dateParm) {
         //.select('subject,from,receivedDateTime,isRead')
         .select('*')
         .orderby('receivedDateTime DESC')
-        .filter(`receivedDateTime ge ${dateParm}`)
+        //.filter(`receivedDateTime ge ${dateParm}`)
         .get();
 
     let inbox = result.value;
     console.log('Inbox count: ', inbox.length);
-    //console.log('CLIENT_INBOX: ', inbox);    
+    //console.log('CLIENT_INBOX: ', inbox);
     if (inbox.length > 0) {
         await processarEmails(inbox, 'Inbox');
     }
@@ -95,7 +95,7 @@ async function buscarOutbox(client, dateParm) {
         //.select('subject,from,receivedDateTime,isRead')
         .select('*')
         .orderby('sentDateTime DESC')
-        .filter(`sentDateTime ge ${dateParm}`)
+        //.filter(`sentDateTime ge ${dateParm}`)
         .get();
 
     let outbox = result.value;

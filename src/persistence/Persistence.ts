@@ -17,7 +17,8 @@ export class Persistence {
             "dataChegadaOuEnvio": emailData.dataChegadaOuEnvio,
             "temAnexos": emailData.temAnexos,
             "foiLido": emailData.foiLido,
-            "finalizado": emailData.finalizado
+            "finalizado": emailData.finalizado,
+            "webLink": emailData.webLink
         }
     }
 

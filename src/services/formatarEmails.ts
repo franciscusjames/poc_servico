@@ -23,7 +23,8 @@ export async function processarEmails(emails, emailType) {
             dataChegadaOuEnvio: data,
             //attachments: [],
             temAnexos: item.hasAttachments,
-            foiLido: item.isRead
+            foiLido: item.isRead,
+            webLink: item.webLink
         };
     });
     //console.log(`emails ${emailType}: `, emailsTratados);

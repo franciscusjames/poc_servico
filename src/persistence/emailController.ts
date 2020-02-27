@@ -16,6 +16,7 @@ exports.save = async (emails) => {
             item.temAnexos,
             //item.attachments,
             item.foiLido,
+            item.webLink,
             item.finalizado
         );
 

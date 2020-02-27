@@ -11,9 +11,10 @@ class Email {
     temAnexos;
     foiLido;
     finalizado;
+    webLink;
 
 
-    constructor(emailId, tipoEmail, remetente, assunto, emailBody, dataChegadaOuEnvio, temAnexos, foiLido) {
+    constructor(emailId, tipoEmail, remetente, assunto, emailBody, dataChegadaOuEnvio, temAnexos, foiLido, webLink) {
         this.emailId = emailId;
         this.tipoEmail = tipoEmail;
         this.remetente = remetente;
@@ -22,6 +23,7 @@ class Email {
         this.dataChegadaOuEnvio = dataChegadaOuEnvio;
         this.temAnexos = temAnexos;
         this.foiLido = foiLido;
+        this.webLink = webLink;
         this.finalizado = 'Não';
 
         this.validate();
@@ -36,6 +38,7 @@ class Email {
         if (isNullOrUndefined(this.dataChegadaOuEnvio)) throw Error('dataChegadaOuEnvio é obrigatório.')
         if (isNullOrUndefined(this.temAnexos)) throw Error('temAnexos é obrigatório.')
         if (isNullOrUndefined(this.foiLido)) throw Error('foiLido é obrigatório.')
+        if (isNullOrUndefined(this.webLink)) throw Error('webLink é obrigatório.')
     }
 
 }
