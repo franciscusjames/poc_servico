@@ -64,6 +64,7 @@ export async function buscarEmails() {
     });
     req.write(tokenPostData);
     req.end();
+    return;
 }
 
 
@@ -74,7 +75,7 @@ async function buscarInbox(client, dateParm) {
         //.select('subject,from,receivedDateTime,isRead')
         .select('*')
         .orderby('receivedDateTime DESC')
-        //.filter(`receivedDateTime ge ${dateParm}`)
+        .filter(`receivedDateTime ge ${dateParm}`)
         .get();
 
     let inbox = result.value;
@@ -85,6 +86,7 @@ async function buscarInbox(client, dateParm) {
     }
     console.log('Caixa de Entrada: OK');
     console.log('------------------------');
+    return;
 }
 
 
@@ -95,7 +97,7 @@ async function buscarOutbox(client, dateParm) {
         //.select('subject,from,receivedDateTime,isRead')
         .select('*')
         .orderby('sentDateTime DESC')
-        //.filter(`sentDateTime ge ${dateParm}`)
+        .filter(`sentDateTime ge ${dateParm}`)
         .get();
 
     let outbox = result.value;
@@ -106,5 +108,6 @@ async function buscarOutbox(client, dateParm) {
     }
     console.log('Caixa de Saida: OK');
     console.log('------------------------');
+    return;
 }
 

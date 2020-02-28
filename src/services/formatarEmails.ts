@@ -30,4 +30,5 @@ export async function processarEmails(emails, emailType) {
     //console.log(`emails ${emailType}: `, emailsTratados);
     console.log(`tratarEmails - ${emailType}: OK`);
     await emailController.save(emailsTratados);
+    return;
 }
