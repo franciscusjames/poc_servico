@@ -20,7 +20,7 @@ exports.save = async (emails) => {
             item.finalizado
         );
 
-        //await persistence.insertEmail(email);
+        await persistence.insertEmail(email);
 
         // if (item.hasAttachments) {
         //     item.attachments.map(async (anexo) => {
